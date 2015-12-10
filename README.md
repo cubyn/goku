@@ -1,13 +1,14 @@
 # Goku
 > Transform & serialize to simple JS objects
 
-Goku takes simple descriptors and transform + serializes complex JS objects into simple JSON objects.
+Goku takes simple descriptors and transforms + serializes complex JS objects into simple JSON objects.
 
 Features:
 - recursion
 - es6 support (class name based serialization)
 - field aliases
 - serialization groups
+
 
 ## Sample
 
