@@ -55,7 +55,24 @@ goku.serialize(user, ['details']);
 //  }
 ```
 
-## Defining and registering your descriptors
+## Usage
+
+### Installation
+
+```
+$ npm install goku
+```
+
+Then
+
+```
+// ES6
+import Goku from 'goku';
+// ES5
+var Goku = require('goku');
+```
+
+### Defining and registering your descriptors
 
 ```json
 // in user-descriptor.json
@@ -73,13 +90,56 @@ goku.registerDescriptor('User', require('user-descriptor.json'));
 goku.serialize(user);
 ```
 
-## Using in an ES6 project
+### Using in an ES6 project
 
 ```javascript
 require('babel/register')({
     stage: 1,
     ignore: /node_modules\/(?!goku)/
 })
+```
+
+## Recipes
+
+### Rest APIs with Express + Goku
+
+```
+// initialize goku
+const goku = new Goku();
+goku.registerDescriptor('User', ...);
+goku.registerDescriptor('Invoice', ...);
+
+// middlewares for serialization
+
+function groups(...data) {
+    return function(req, res, next) {
+        req.groups = data;
+        next();
+    };
+}
+
+server.use(function(req, res, next) {
+    res.goku = function(data) {
+        return res.json(goku.serialize(data, req.groups));
+    }
+    next();
+});
+
+function list(req, res, next) {
+    const users = ...;
+    res.goku(users);
+}
+
+function read(req, res, next) {
+    const user = ...;
+    res.goku(user);
+}
+
+router.route('/users')
+    .get([ list ]);
+
+router.route('/users/:id')
+    .get([ groups('details'), read ]);
 ```
 
 ## Contributions
