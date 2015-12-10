@@ -1,33 +1,31 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var mocha = require('gulp-mocha');
+require('babel/register')({ stage: 1 });
 
-gulp.task('babel', function() {
+gulp.task('babel', ['test'], function() {
     return gulp.src('src/*.js')
         .pipe(babel())
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('wsdl', function() {
-    return gulp.src('src/*.wsdl')
-        .pipe(gulp.dest('dist/'));
-});
-
 gulp.task('watch', function() {
-    gulp.watch('src/*.js', ['babel']);
-    gulp.watch('src/*.wsdl', ['wsdl']);
+    gulp.watch('src/*.js', ['babel', 'test']);
 });
 
-gulp.task('test', ['babel'], function() {
+gulp.task('test', function() {
     return gulp.src(['test/*.js'])
         .pipe(mocha({
-            reporter: 'spec'
+            reporter: 'spec',
+            require: ['./test/init.js']
         }))
         .on('error', function(err) {
             console.log(err.stack);
         });
 });
 
-// Default Task
-gulp.task('default', ['babel', 'test']);
-gulp.task('dist', ['babel', 'wsdl']);
+gulp.task('watch-test', function() {
+    gulp.watch('test/*.js', ['test']);
+});
+
+gulp.task('default', ['babel']);
