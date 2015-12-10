@@ -113,7 +113,7 @@ goku.serialize(user);
 
 - js files
 
-```json
+```javascript
 // in user-descriptor.js
 export default {
     firstName: true,
