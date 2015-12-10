@@ -125,12 +125,15 @@ export default class Goku {
     }
 
     getSerializationName(object) {
-        var serName;
+        var serName = null;
         if (!_.isObject(object)) return null;
         if (_.isFunction(object.getSerializationName)) {
             serName = object.getSerializationName();
-        } else if (object.constructor)
+        } else if (object.constructor && object.constructor.name !== 'Function') {
             serName = object.constructor.name;
+        } else {
+            serName = object.name;
+        }
         return serName;
     }
 }

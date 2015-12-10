@@ -25,7 +25,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('watch-test', function() {
-    gulp.watch('test/*.js', ['test']);
+    gulp.watch('**/*.js', ['test']);
 });
 
 gulp.task('default', ['babel']);

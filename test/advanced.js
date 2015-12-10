@@ -125,6 +125,24 @@ describe('classes', function() {
             });
     });
 
+    it('should handle ES5 objects', function () {
+        function User(first, last) {
+            this.first = first;
+            this.last = last;
+        }
+        const user = new User('jane', 'doe');
+        expectSerialize(user, { User: { first: true } })
+            .to.deep.equal({ first: 'jane' });
+    });
+
+    it('should handle ES5 functions', function () {
+        function User() {}
+        User.first = 'jane';
+        User.last = 'doe';
+        expectSerialize(User, { User: { first: true } })
+            .to.deep.equal({ first: 'jane' });
+    });
+
     it('should handle aliases', function () {
 
         expectSerialize(child, {
