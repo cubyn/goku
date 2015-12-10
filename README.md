@@ -86,43 +86,67 @@ require('babel/register')({
 
 ### Defining and registering your descriptors
 
+- direct registration
+
+```javascript
+goku.registerDescriptor('User', {
+    firstName: true,
+    lastName: true
+});
+goku.serialize(user);
+```
+
+- json files
+
 ```json
 // in user-descriptor.json
 {
     "firstName": true,
-    "lastName": true,
-    "email": [ "details" ]
+    "lastName": true
 }
 ```
 
 ```javascript
-import Goku from 'goku';
-const goku = new Goku();
 goku.registerDescriptor('User', require('user-descriptor.json'));
+goku.serialize(user);
+```
+
+- js files
+
+```json
+// in user-descriptor.js
+export default {
+    firstName: true,
+    lastName: true
+}
+```
+
+```javascript
+goku.registerDescriptor('User', require('./user-descriptor'));
 goku.serialize(user);
 ```
 
 ### Descriptor syntax
 
-1. always serialized
+- always serialized
 
-```json
+```javascript
 {
     firstName: true
 }
 ```
 
-2. conditional group based serialization
+- conditional group based serialization
 
-```json
+```javascript
 {
     firstName: [ 'details' ]
 }
 ```
 
-3. aliased serialization
+- aliased serialization
 
-```json
+```javascript
 {
     firstName: {
         as: 'first'
@@ -130,9 +154,9 @@ goku.serialize(user);
 }
 ```
 
-4. mixed
+- mixed
 
-```json
+```javascript
 {
     firstName: {
         as: 'first',
