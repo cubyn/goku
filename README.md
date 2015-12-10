@@ -73,6 +73,17 @@ import Goku from 'goku';
 var Goku = require('goku');
 ```
 
+### Using in an ES6 project
+
+```javascript
+require('babel/register')({
+    stage: 1,
+    ignore: /node_modules\/(?!goku)/
+})
+```
+
+## Descriptors
+
 ### Defining and registering your descriptors
 
 ```json
@@ -91,13 +102,43 @@ goku.registerDescriptor('User', require('user-descriptor.json'));
 goku.serialize(user);
 ```
 
-### Using in an ES6 project
+### Descriptor syntax
 
-```javascript
-require('babel/register')({
-    stage: 1,
-    ignore: /node_modules\/(?!goku)/
-})
+1. always serialized
+
+```json
+{
+    firstName: true
+}
+```
+
+2. conditional group based serialization
+
+```json
+{
+    firstName: [ 'details' ]
+}
+```
+
+3. aliased serialization
+
+```json
+{
+    firstName: {
+        as: 'first'
+    }
+}
+```
+
+4. mixed
+
+```json
+{
+    firstName: {
+        as: 'first',
+        groups: [ 'details' ]
+    }
+}
 ```
 
 ## Recipes
