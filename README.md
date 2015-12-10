@@ -103,7 +103,7 @@ require('babel/register')({
 
 ### Rest APIs with Express + Goku
 
-```
+```javascript
 // initialize goku
 const goku = new Goku();
 goku.registerDescriptor('User', ...);
