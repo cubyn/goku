@@ -118,7 +118,11 @@ export default class Goku {
             if (key in object) sub = object[key];
             else sub = raw[key];
             if (serializeIt && !_.isUndefined(sub)) {
-                result[fieldDescriptor.as] = this._doSerialize(sub, context);
+                if (descriptor.fields[key].cb) {
+                    result[fieldDescriptor.as] = descriptor.fields[key].cb(sub);
+                } else {
+                    result[fieldDescriptor.as] = this._doSerialize(sub, context);
+                }
             }
         }
         return compact(result);
