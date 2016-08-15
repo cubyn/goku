@@ -19,6 +19,8 @@ export default class FieldDescriptor {
             return new FieldDescriptor(name, data);
         } else if (_.isArray(data)) {
             return new FieldDescriptor(name, false, data);
+        } else if (_.isFunction(data)) {
+            return new FieldDescriptor(name, true, [], null, data);
         } else if (_.isObject(data)) {
             const always = _.isBoolean(data.always) ?
                 data.always :
