@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var mocha = require('gulp-mocha');
-require('babel/register')({ stage: 1 });
+require('babel-core/register')();
 
 gulp.task('babel', ['test'], function() {
     return gulp.src('src/*.js')
