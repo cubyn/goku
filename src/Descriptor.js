@@ -17,7 +17,5 @@ export default class Descriptor {
             descriptor.fields[fieldName] = FieldDescriptor.parse(fieldName, fieldData);
         }
         return descriptor;
-
     }
-
 }

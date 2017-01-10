@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Context from './Context';
 import Descriptor from './Descriptor';
+
 const debug = require('debug')('goku');
 
 const DEFAULT_OPTIONS = {
@@ -50,9 +51,9 @@ export default class Goku {
     getDescriptor(name) {
         if (name && this.descriptors[name]) {
             return this.descriptors[name];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -74,17 +75,19 @@ export default class Goku {
             return undefined;
         }
 
-        if (_.isBoolean(data) || _.isString(data) || _.isNumber(data) || _.isDate(data))
+        if (_.isBoolean(data) || _.isString(data) || _.isNumber(data) || _.isDate(data)) {
             return data;
+        }
 
         if (context.depth > this.options.maxDepth) {
             return this.options.maxDepthWarning;
         }
 
-        if (_.isArray(data))
+        if (_.isArray(data)) {
             return _.map(data, (o) => {
                 return this._doSerialize(o, context);
             });
+        }
 
         if (_.isObject(data)) {
             var serName = this.getSerializationName(data);
@@ -102,6 +105,8 @@ export default class Goku {
             }
             return serializedObject;
         }
+
+        return undefined;
     }
 
     _doSerializeObject(object, descriptor, context) {
