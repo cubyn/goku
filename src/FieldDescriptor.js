@@ -19,11 +19,12 @@ export default class FieldDescriptor {
         } else if (_.isArray(data)) {
             return new FieldDescriptor(name, false, data);
         } else if (_.isObject(data)) {
-            const always = _.isBoolean(data.always) ?
-                data.always :
-                data.groups && data.groups.length ? false : true;
+            const isEmpty = data.groups && data.groups.length > 0;
+            const always = _.isBoolean(data.always) ? data.always : isEmpty;
             return new FieldDescriptor(name, always, data.groups || [], data.as);
         }
+
+        throw new Error('Was not able to parse provided parameters.');
     }
 
 }
