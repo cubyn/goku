@@ -16,8 +16,7 @@ gulp.task('watch', function() {
 gulp.task('test', function() {
     return gulp.src(['test/*.js'])
         .pipe(mocha({
-            reporter: 'spec',
-            require: ['./test/init.js']
+            reporter: 'spec'
         }))
         .on('error', function(err) {
             console.log(err.stack);
