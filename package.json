@@ -1,6 +1,6 @@
 {
   "name": "goku",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Transform & serialize to simple JS objects",
   "main": "dist/index.js",
   "scripts": {
