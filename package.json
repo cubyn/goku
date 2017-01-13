@@ -16,7 +16,7 @@
     "transform",
     "stringify"
   ],
-  "engine": {
+  "engines": {
     "node": ">=4"
   },
   "homepage": "https://github.com/cubyn/goku",
