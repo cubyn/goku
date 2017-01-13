@@ -1,0 +1,6 @@
+{
+    "extends": ["cubyn"],
+    "rules": {
+        "no-underscore-dangle": [0]
+    }
+}

@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var mocha = require('gulp-mocha');
-require('babel/register')({ stage: 1 });
+require('babel-core/register')();
 
 gulp.task('babel', ['test'], function() {
     return gulp.src('src/*.js')
@@ -16,8 +16,7 @@ gulp.task('watch', function() {
 gulp.task('test', function() {
     return gulp.src(['test/*.js'])
         .pipe(mocha({
-            reporter: 'spec',
-            require: ['./test/init.js']
+            reporter: 'spec'
         }))
         .on('error', function(err) {
             console.log(err.stack);
