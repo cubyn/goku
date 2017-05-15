@@ -37,7 +37,7 @@ export default class Goku {
      * @param  {String}        serName (optional) The serializer to use for depth === 0
      * @return {Object}        The serialization result as a raw JS object
      */
-    serialize(data, groups = [], serName) {
+    serialize(data, groups = [], serName = false) {
         if (serName && data) {
             const getSerializationName = _.identity(serName);
 
