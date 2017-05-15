@@ -32,11 +32,22 @@ export default class Goku {
     }
 
     /**
-     * @param  {mixed}  data
-     * @param  {Array}  groups (optional) serialization groups
+     * @param  {mixed}         data
+     * @param  {Array}         groups (optional) serialization groups
+     * @param  {String}        serName (optional) The serializer to use for depth === 0
      * @return {Object}        The serialization result as a raw JS object
      */
-    serialize(data, groups = []) {
+    serialize(data, groups = [], serName) {
+        if (serName && data) {
+            const getSerializationName = _.identity(serName);
+
+            if (Array.isArray(data)) {
+                data = data.map(d => Object.assign(d, { getSerializationName }));
+            } else {
+                data.getSerializationName = getSerializationName;
+            }
+        }
+
         var result = this._doSerialize(data, new Context(groups || []));
         if (_.isObject(data) && _.isUndefined(result)) {
             return {};
